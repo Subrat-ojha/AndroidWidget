@@ -1,6 +1,6 @@
 # Androiid widget
 
-A self-contained 3D beach-cat widget. Tap to pet the cat, swipe sideways to change the scene (seven scenes; they also auto-advance). Two of the scenes are triggered automatically by the Android app: headphones while music is playing, and a phone call while a call is active.
+A self-contained 3D beach-cat widget. Tap to pet the cat, swipe sideways to change the scene (seven scenes; they also auto-advance). Two of the scenes are triggered automatically by music and calls: the home-screen widget and the full app both switch to headphones while music is playing and to the phone scene while a call is active, then return to the normal loop. Android widgets are static snapshots, so the widget swaps a new still every 10 seconds instead of running the WebGL animation.
 
 ## Deploy
 

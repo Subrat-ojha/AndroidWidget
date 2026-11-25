@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -75,19 +73,12 @@ public class MainActivity extends Activity {
         if (hasFocus) hideBars();
     }
 
-    /** Safe: the decor view's insets controller is null until attached. */
+    /** Safe: the decor view is not ready until the window is attached. */
     private void hideBars() {
         View v = getWindow() == null ? null : getWindow().getDecorView();
         if (v == null || !v.isAttachedToWindow()) return;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            WindowInsetsController c = v.getWindowInsetsController();
-            if (c != null) {
-                c.hide(WindowInsets.Type.systemBars());
-                c.setSystemBarsBehavior(
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-            }
-        } else {
+        try {
             v.setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -95,6 +86,8 @@ public class MainActivity extends Activity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        } catch (Throwable ignored) {
+            // Some OEM builds throw while the window is being recreated.
         }
     }
 

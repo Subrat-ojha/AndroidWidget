@@ -10,6 +10,15 @@ full-screen WebView wrapping the same widget that is deployed on Netlify.
 - A real home-screen AppWidget is included: resizable, tap the picture to cycle
   scenes and tap the bottom bar to open the full app. It appears in the system
   widget picker as "Beach cat widget".
+- The widget is alive while it sits on the home screen. A 10-second alarm swaps
+  the still frames automatically, and while music is playing it pins the
+  headphones scene; while a call is active it pins the phone scene. Both stay
+  pinned until the audio state ends, then the normal loop resumes. The full app
+  does not need to be open — the audio state is read from `AudioManager`.
+
+Android home-screen widgets cannot host a WebGL canvas, so the widget shows
+crisp rendered stills that change every few seconds instead of a 60 fps
+animation. The full-screen app (tap the bottom bar) has the real animated cat.
 
 ## Automatic music / call scenes
 
