@@ -6,6 +6,19 @@ full-screen WebView wrapping the same widget that is deployed on Netlify.
 - Package: `com.androiid.widget`
 - Min SDK: 21 (Android 5.0), target SDK 34
 - Signature: v1 + v2 + v3
+- Scenes: nap, purr, meal, walk, night, music (headphones), call (phone)
+
+## Automatic music / call scenes
+
+`MainActivity` exposes a small JavaScript bridge (`Android.getState()`), polled
+by the page. When Android reports `music`, the cat switches to the headphones
+scene; when it reports `call`, it switches to the phone scene. Call takes
+priority over music. When both end, the widget returns to the scene that was
+active before the state change. No permissions are required: detection uses
+`AudioManager.isMusicActive()` and `AudioManager.getMode()`.
+
+On Netlify (no bridge present), all seven scenes are reachable by swiping and
+by the auto-rotation.
 
 ## Project layout
 

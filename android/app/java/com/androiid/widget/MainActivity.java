@@ -1,10 +1,12 @@
 package com.androiid.widget;
 
 import android.app.Activity;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,13 +14,17 @@ import android.webkit.WebViewClient;
 public class MainActivity extends Activity {
 
     private WebView web;
+    private AudioManager audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+        audio = (AudioManager) getSystemService(AUDIO_SERVICE);
+
         web = new WebView(this);
+        web.addJavascriptInterface(new JsBridge(), "Android");
         web.setBackgroundColor(0xFFe9d9bd);
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -39,6 +45,24 @@ public class MainActivity extends Activity {
         web.loadUrl("file:///android_asset/www/index.html");
         setContentView(web);
         hideBars();
+    }
+
+    /** Called from the page every ~600ms. Call state wins over music. */
+    private String currentAudioState() {
+        if (audio == null) return "idle";
+        int mode = audio.getMode();
+        if (mode == AudioManager.MODE_IN_CALL || mode == AudioManager.MODE_IN_COMMUNICATION) {
+            return "call";
+        }
+        if (audio.isMusicActive()) return "music";
+        return "idle";
+    }
+
+    public class JsBridge {
+        @JavascriptInterface
+        public String getState() {
+            return currentAudioState();
+        }
     }
 
     @Override
