@@ -15,10 +15,18 @@ full-screen WebView wrapping the same widget that is deployed on Netlify.
 
 `MainActivity` exposes a small JavaScript bridge (`Android.getState()`), polled
 by the page. When Android reports `music`, the cat switches to the headphones
-scene; when it reports `call`, it switches to the phone scene. Call takes
-priority over music. When both end, the widget returns to the scene that was
-active before the state change. No permissions are required: detection uses
-`AudioManager.isMusicActive()` and `AudioManager.getMode()`.
+scene (sitting, facing the viewer, next to a radio); when it reports `call`, it
+switches to the phone scene (sitting, facing the viewer, holding the phone to its
+ear). Call takes priority over music. When both end, the widget returns to the
+scene that was active before the state change. No permissions are required:
+detection uses `AudioManager.isMusicActive()` and `AudioManager.getMode()`.
+
+## Launch robustness
+
+- System-bar hiding is only done after the view is attached and is null-safe.
+- WebView creation is wrapped so devices with a missing/broken WebView show a
+  message instead of crashing.
+- If WebGL is unavailable, the page shows a message instead of failing silently.
 
 On Netlify (no bridge present), all seven scenes are reachable by swiping and
 by the auto-rotation.

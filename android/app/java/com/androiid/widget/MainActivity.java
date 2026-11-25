@@ -39,6 +39,8 @@ public class MainActivity extends Activity {
             s.setDomStorageEnabled(true);
             s.setAllowFileAccess(true);
             s.setAllowContentAccess(true);
+            s.setAllowFileAccessFromFileURLs(true);
+            s.setAllowUniversalAccessFromFileURLs(true);
             s.setLoadWithOverviewMode(true);
             s.setUseWideViewPort(true);
             s.setCacheMode(WebSettings.LOAD_NO_CACHE);
