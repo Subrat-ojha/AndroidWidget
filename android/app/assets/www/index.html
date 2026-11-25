@@ -51,7 +51,8 @@ var CFG=[
 {n:'music',sky:['#6a5acd','#ffd9a0'],sea:0x7b6fc9,fur:0xe8a45c,belly:0xfff0d8,sun:0xffe9b0,sp:[7,9,-30],chip:'Vibing with headphones \u00B7 music on'},
 {n:'call',sky:['#79c7d4','#f7ebcf'],sea:0x3fa6c8,fur:0xe48a3c,belly:0xffe2b8,sun:0xfff0b0,sp:[8,10,-30],chip:'On a call \u00B7 shhh, talking'}];
 var MUSIC_I=5,CALL_I=6;
-var r=new T.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+var r=null;try{r=new T.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(window.devicePixelRatio||1,2))}catch(e){}
+if(!r){chip.textContent='3D not available on this device';dots.forEach(function(d){d.style.display='none'});clock.style.display='none';return;}
 var sc=new T.Scene(),cam=new T.PerspectiveCamera(38,340/460,.1,120);
 var hemi=new T.HemisphereLight(0xcfe8ff,0xf0d9a0,.85),dl=new T.DirectionalLight(0xffe6b8,.75);dl.position.set(-4,8,6);sc.add(hemi,dl);
 var sun=new T.Mesh(new T.SphereGeometry(3,24,16),new T.MeshBasicMaterial({color:0xffffff,fog:false}));sc.add(sun);

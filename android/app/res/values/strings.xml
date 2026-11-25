@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Androiid Widget</string>
+    <string name="widget_desc">Beach cat widget</string>
+    <string name="widget_open">tap picture: next scene · tap here: open app</string>
 </resources>

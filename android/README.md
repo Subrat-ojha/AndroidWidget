@@ -7,6 +7,9 @@ full-screen WebView wrapping the same widget that is deployed on Netlify.
 - Min SDK: 21 (Android 5.0), target SDK 34
 - Signature: v1 + v2 + v3
 - Scenes: nap, purr, meal, walk, night, music (headphones), call (phone)
+- A real home-screen AppWidget is included: resizable, tap the picture to cycle
+  scenes and tap the bottom bar to open the full app. It appears in the system
+  widget picker as "Beach cat widget".
 
 ## Automatic music / call scenes
 
